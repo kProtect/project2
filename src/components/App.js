@@ -1,23 +1,51 @@
-import React, {Componenet} from "react";
-import {BrowserRouter as Router} from 'react-router-dom'
+import React, {Component, Fragment} from "react";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {Grid} from 'semantic-ui-react';
 import { handleInitialData } from "../actions/shared";
 import { connect } from "react-redux";
+import Login from './Login';
+import Nav from './Nav';
+import Home from './Home';
+import UserCard from "./UserCard";
+import NewPoll from './NewPoll';
+import LeaderBoard from './LeaderBoard';
+import NoMatch from './NoMatch';
+import { receiveUsers } from "../actions/users";
 
-class App extends Componenet {
-    componentDidMoun() {
+class App extends Component {
+    componentDidMount() {
         this.props.handleInitialData();
     }
-
     render() {
+        const { authUser } = this.props;
         return (
-            <Router>
+            <Rotuer>
                 <div className="App">
-                    <CounterGrid>
-                        <p>New Start...</p>
-                    </CounterGrid>
+                    {authUser === null ? (
+                        <Route
+                            render={() => (
+                                <CounterGrid>
+                                    <Login />
+                                </CounterGrid>
+                            )}
+                            />
+                    ) : (
+                        <Fragment>
+                            <Nav />
+                            <CounterGrid>
+                                <Switch>
+                                    <Route exact path="/" component={Home}/>
+                                    <Route path="/questions/bad_id" component={NoMatch}/>
+                                    <Route path="/questions/:question_id" component={UserCard} />
+                                    <Route path="/add" component={NewPoll} />
+                                    <Route path="/leaderboard" component={LeaderBoard} />
+                                    <Router component={NoMatch} />
+                                </Switch>
+                            </CounterGrid>
+                        </Fragment>
+                    )}
                 </div>
-            </Router>
+            </Rotuer>
         );
     }
 }
@@ -30,7 +58,13 @@ const CounterGrid = ({ children }) => (
     </Grid>
 );
 
+function mapStateToProps({ authUser }) {
+    return {
+        authUser
+    };
+}
+
 export default connect (
-    null,
+    mapStateToProps,
     {handleInitialData}
 )(App);
