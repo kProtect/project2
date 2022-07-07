@@ -1,15 +1,14 @@
 import React, { Component, Fragment} from "react";
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { connect } from "react-redux";
 import {
     Header,
-    Segmement,
+    Segment,
     Progress,
     Label,
     Button,
-    Icon,
-    Segment
+    Icon
 } from 'semantic-ui-react';
 import {styles} from '../utils/helpers'
 
@@ -62,7 +61,7 @@ export class PollResult extends Component {
              sytle={{ backgroundColor: `${option1.bgColor}`}}
              >
                 {userVote === 'optionOne' && <YourVoteLabel />}
-                <p sytle={{ fontWeight:'bold'}}>{{question.optionOne.text}}</p>
+                <p sytle={{ fontWeight:'bold'}}>{question.optionOne.text}</p>
                 <Progress
                     percent={((optionOneVotes / VotesTotal) * 100).toFixed(2)}
                     progress
@@ -95,10 +94,10 @@ export class PollResult extends Component {
 }
 
 function mapStateToProps({ users,authUser}) {
-    const user = user[authUser];
+    const user = users[authUser];
     return {
         user
     };
 }
 
-export default withRouter(connect(mapStateToProps)(PollResult));
+export default useNavigate(connect(mapStateToProps)(PollResult));

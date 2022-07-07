@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Redirect} from 'react-router-dom';
-import { connec } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
     Segment,
     Header,
@@ -11,7 +11,6 @@ import {
     Dimmer,
     Loader
 } from 'semantic-ui-react';
-
 import {handleSaveQuestion} from '../actions/questions';
 
 export class NewPoll extends Component {
@@ -49,7 +48,7 @@ export class NewPoll extends Component {
         const disabled = this.state.option1 === '' || this.state.option2 === '';
 
         if (this.state.validSubmit === true ) {
-            return <Redirect to="/" />;
+            return <Navigate to="/" />;
         }
         return (
             <Segment.Group>
@@ -81,6 +80,7 @@ export class NewPoll extends Component {
                                 placeholder="Choose Your Second"
                                 value={this.state.option2}
                                 onChange={this.handleChange}
+                                required
                             />
                             <Form.Button positive size='tiny' fluid disabled={disabled}>
                                 Submit Your Choice
@@ -99,7 +99,7 @@ function mapStateToProps ({ authUser }) {
     };
 }
 
-export default connec(
+export default connect(
     mapStateToProps,
     {handleSaveQuestion}
 )(NewPoll);

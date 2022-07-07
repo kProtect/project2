@@ -1,8 +1,7 @@
 import { 
     RECEIVE_USERS,
-    ADD_ANSWER_TO_USER,
-    ADD_ANSWER_TO_USERS, 
-    ADD_QUESTION_USER} 
+    ADD_ANSWER_TO_USER, 
+    ADD_QUESTION_TO_USER} 
 from "../actions/users";
 
 export default function users(state = {} , action) {
@@ -12,7 +11,6 @@ export default function users(state = {} , action) {
                 ...state,
                 ...action.users
             };
-
             case ADD_ANSWER_TO_USER:
                 const { authUser, qid, answer } = action;
 
@@ -20,13 +18,13 @@ export default function users(state = {} , action) {
                     ...state,
                     [authUser] : {
                         ...state[authUser],
-                        answers: {
+                        answer: {
                             ...state[authUser].answers,
                             [qid]: answer
                         }
                     }
                 };
-            case ADD_QUESTION_USER:
+            case ADD_QUESTION_TO_USER:
                 const { id, author } = action;
 
                 return {

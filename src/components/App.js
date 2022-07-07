@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from "react";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {Grid} from 'semantic-ui-react';
 import { handleInitialData } from "../actions/shared";
 import { connect } from "react-redux";
@@ -10,7 +10,6 @@ import UserCard from "./UserCard";
 import NewPoll from './NewPoll';
 import LeaderBoard from './LeaderBoard';
 import NoMatch from './NoMatch';
-import { receiveUsers } from "../actions/users";
 
 class App extends Component {
     componentDidMount() {
@@ -19,38 +18,36 @@ class App extends Component {
     render() {
         const { authUser } = this.props;
         return (
-            <Rotuer>
+            <Router>
                 <div className="App">
                     {authUser === null ? (
                         <Route
                             render={() => (
-                                <CounterGrid>
+                                <ContentGrid>
                                     <Login />
-                                </CounterGrid>
+                                </ContentGrid>
                             )}
                             />
                     ) : (
                         <Fragment>
                             <Nav />
-                            <CounterGrid>
-                                <Switch>
+                            <ContentGrid>
                                     <Route exact path="/" component={Home}/>
                                     <Route path="/questions/bad_id" component={NoMatch}/>
                                     <Route path="/questions/:question_id" component={UserCard} />
                                     <Route path="/add" component={NewPoll} />
                                     <Route path="/leaderboard" component={LeaderBoard} />
                                     <Router component={NoMatch} />
-                                </Switch>
-                            </CounterGrid>
+                            </ContentGrid>
                         </Fragment>
                     )}
                 </div>
-            </Rotuer>
+            </Router>
         );
     }
 }
 
-const CounterGrid = ({ children }) => (
+const ContentGrid = ({ children }) => (
     <Grid padded="vertically" columns={1} centered>
         <Grid.Row>
             <Grid.Column style={{ maxWidth:550}}>{children}</Grid.Column>

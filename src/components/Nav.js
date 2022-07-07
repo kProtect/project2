@@ -1,9 +1,8 @@
 import React, {Component, Fragment} from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
     Menu,
-    Responsive,
     Image,
     Grid,
     Button,
@@ -22,7 +21,6 @@ class Nav extends Component {
         
         return (
             <Container>
-                <Responsive as={Menu} minWidth={651} pointing secondary>
                     <Menu.Item name="home" as={NavLink} to="/" exact />
                     <Menu.Item name="new Poll" as={NavLink} to="/add" exact />
                     <Menu.Item name="leader board" as={NavLink} to="/leaderboard" exact />
@@ -49,13 +47,72 @@ class Nav extends Component {
                             />
                         </Menu.Item>
                     </Menu.Menu>
-                </Responsive>
-                <Responsive as={Fragment} minWidth={375} maxWidth={650}>
-                    
-                </Responsive>
-                <Responsive as={Fragment} maxWidth={374}>
-
-                </Responsive>
+                    <Grid columns={2} padded="vertically">
+                        <Grid.Row>
+                            <Grid.column>
+                                <Image 
+                                src={users[authUser].avatarURL}
+                                avatar
+                                spaced="right"
+                                verticalAlign="bottom"
+                            />
+                            {users[authUser].name}
+                            </Grid.column>
+                            <Grid.Column verticalAlign='bottom' textAlign='right'>
+                                <Button
+                                content="Logout"
+                                labelPosition='right'
+                                basic
+                                compact
+                                icon="log out"
+                                size='mini'
+                                onClick={this.handleLogout}
+                            />
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width={16}>
+                                <Menu pointing secondary widths={3}>
+                                    <Menu.Item name='home' as={NavLink} to="/" exact />
+                                    <Menu.Item name='new poll' as={NavLink} to="/add" />
+                                    <Menu.Item name='leader board' as={NavLink} to="/leaderboard" 
+                                 />
+                                </Menu>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                    <Grid padded="vertically" columns={1}>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Image
+                                src={users[authUser].avatarURL}
+                                avatar
+                                spaced="right"
+                                verticalAlign='bottom'
+                            />
+                            {users[authUser].name}
+                            <Button
+                                content="Logout"
+                                labelPosition='right'
+                                basic
+                                compact
+                                icon="log out"
+                                size='mini'
+                                floated='right'
+                                onClick={this.handleLogout}
+                            />
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Menu pointing secondary widths={3}>
+                                <Menu.Item name='home' as={NavLink} to="/" exact />
+                                <Menu.Item name='new poll' as={NavLink} to="/add" />
+                                <Menu.Item name='leader board' as={NavLink} to="/leaderboard"/>
+                                </Menu>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
             </Container>
         );
     }

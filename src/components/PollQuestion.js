@@ -30,7 +30,7 @@ export class PollQuestion extends Component {
 
         return (
             <Fragment>
-                <Header as="h4">What would you</Header>
+                <Header as="h4">What would you Do</Header>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Field>
                         <Radio

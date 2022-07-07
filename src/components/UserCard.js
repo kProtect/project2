@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { Segment, Header, Grid, Image } from "semantic-ui-react";
 import PollQuestion from './PollQuestion';
 import PollResult from './PollResult';
 import PollTeaser from './PollTeaser';
 import { colors } from '../utils/helpers';
-import { receiveUsers } from "../actions/users";
 
 
 const pollTypes = {
@@ -49,7 +48,7 @@ export class UserCard extends Component {
          } = this.props;
 
          if (badPath === true) {
-            return <Redirect to="/questions/bad_id"/>;
+            return <Navigate to="/questions/bad_id"/>;
          }
 
         const tabColor = unanswered === true ? colors.green : colors.blue;
@@ -99,7 +98,7 @@ function mapStateToProps(
         author = users[question.author];
         pollType = pollTypes.POLL_TEASER;
     } else {
-        const { question_id} = match=params;
+        const { question_id} = match.params;
         question = questions[question_id];
         const user = users[authUser];
 

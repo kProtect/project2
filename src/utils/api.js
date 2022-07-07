@@ -1,10 +1,8 @@
-import { queries } from "@testing-library/react";
 import {
     _getUsers,
     _getQuestions,
-    _getQuestion,
-    _saveQuestionAnswer, 
-    _saveQuestion} from "./_DATA";
+    _saveQuestion, 
+    _saveQuestionAnswer} from "./_DATA";
 
 
 export function getInitialData() {

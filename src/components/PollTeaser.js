@@ -1,6 +1,6 @@
 import React, { Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import {Redirect} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import { Header, Button } from 'semantic-ui-react';
 import { colors } from '../utils/helpers'
 
@@ -24,7 +24,7 @@ export class PollTeaser extends Component {
         const buttonContent = unanswered === true ? 'Answer Poll' : ' Results'
 
         if(this.state.viewPoll === true) {
-            return <Redirect push to={`/question/${question.id}`} />;
+            return <Navigate push to={`/question/${question.id}`} />;
         }
         return (
             <Fragment>
